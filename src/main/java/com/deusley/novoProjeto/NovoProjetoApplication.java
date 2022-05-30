@@ -9,10 +9,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.deusley.novoProjeto.domain.Categoria;
 import com.deusley.novoProjeto.domain.Cidade;
+import com.deusley.novoProjeto.domain.Cliente;
+import com.deusley.novoProjeto.domain.Endereco;
 import com.deusley.novoProjeto.domain.Estado;
 import com.deusley.novoProjeto.domain.Produto;
+import com.deusley.novoProjeto.domain.enums.TipoCliente;
 import com.deusley.novoProjeto.repositories.CategoriaRepository;
 import com.deusley.novoProjeto.repositories.CidadeRepository;
+import com.deusley.novoProjeto.repositories.ClienteRepository;
+import com.deusley.novoProjeto.repositories.EnderecoRepository;
 import com.deusley.novoProjeto.repositories.EstadoRepository;
 import com.deusley.novoProjeto.repositories.ProdutoRepository;
 
@@ -30,6 +35,12 @@ public class NovoProjetoApplication implements CommandLineRunner{
 	
 	@Autowired
 	private EstadoRepository estadoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(NovoProjetoApplication.class, args);
@@ -71,7 +82,19 @@ public class NovoProjetoApplication implements CommandLineRunner{
 	estadoRepository.saveAll(Arrays.asList(std1, std2));
 	cidadeRespository.saveAll(Arrays.asList(cd1,cd2, cd3));
 		
+	
+	Cliente cli1 = new Cliente(null, "Andreia Neto", "Andreia@teste.com", "36378912377", TipoCliente.PESSOAFISICA);
+	cli1.getTelefones().addAll(Arrays.asList("33725540","998475501"));
+	
+	Endereco end1 = new Endereco(null,"Rua teste", "368", "ap005", "Jardins","37118835", cli1, cd1);
+	Endereco end2 = new Endereco(null, "Av.Paulo", "250", "ap101", "Flores", "39554460", cli1, cd2);
 		
+	cli1.getEnderecos().addAll(Arrays.asList(end1,end2));
+	
+	clienteRepository.saveAll(Arrays.asList(cli1));
+	enderecoRepository.saveAll(Arrays.asList(end1, end2));
+	
+	
 	}
 
 }
