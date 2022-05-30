@@ -8,8 +8,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.deusley.novoProjeto.domain.Categoria;
+import com.deusley.novoProjeto.domain.Cidade;
+import com.deusley.novoProjeto.domain.Estado;
 import com.deusley.novoProjeto.domain.Produto;
 import com.deusley.novoProjeto.repositories.CategoriaRepository;
+import com.deusley.novoProjeto.repositories.CidadeRepository;
+import com.deusley.novoProjeto.repositories.EstadoRepository;
 import com.deusley.novoProjeto.repositories.ProdutoRepository;
 
 @SpringBootApplication
@@ -20,6 +24,12 @@ public class NovoProjetoApplication implements CommandLineRunner{
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private CidadeRepository cidadeRespository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(NovoProjetoApplication.class, args);
@@ -42,9 +52,24 @@ public class NovoProjetoApplication implements CommandLineRunner{
 	   p1.getCategorias().addAll(Arrays.asList(cat1));
 	   p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 	   p3.getCategorias().addAll(Arrays.asList(cat1));
+	   
+	   
+	   categoriaRepository.saveAll(Arrays.asList(cat1 , cat2));
+	   produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+	   
+	   
+	Estado std1 = new Estado(null, "Santa Catarina");
+	Estado std2 = new Estado (null, "Paraná");
+	
+	Cidade cd1 = new Cidade(null,"Florianópolis", std1);
+	Cidade cd2 = new Cidade(null,"Curitiba", std2);
+	Cidade cd3 = new Cidade(null, "Blumenau", std1);
+	
+	std1.getCidades().addAll(Arrays.asList(cd1,cd3));
+	std2.getCidades().addAll(Arrays.asList(cd2));
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1 , cat2));
-		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+	estadoRepository.saveAll(Arrays.asList(std1, std2));
+	cidadeRespository.saveAll(Arrays.asList(cd1,cd2, cd3));
 		
 		
 	}
