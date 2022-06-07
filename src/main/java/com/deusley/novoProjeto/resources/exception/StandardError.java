@@ -2,6 +2,8 @@ package com.deusley.novoProjeto.resources.exception;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class StandardError implements Serializable {
 	
 	
