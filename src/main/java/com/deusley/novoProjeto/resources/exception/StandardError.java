@@ -2,8 +2,6 @@ package com.deusley.novoProjeto.resources.exception;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 public class StandardError implements Serializable {
 	
 	
@@ -16,7 +14,7 @@ public class StandardError implements Serializable {
 		super();
 		this.status = status;
 		this.msg = msg;
-		this.timeStamp = timeStamp;
+	    this.timeStamp = timeStamp;
 	}
 
 	public Integer getStatus() {
