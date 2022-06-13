@@ -16,22 +16,22 @@ public class CategoriaService {
 	private CategoriaRepository rep;
 
 
-	public Categoria buscar(Integer id) {
+	public Categoria find(Integer id) {
 		return rep.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundExcepition(" Categoria  de ID: " + id + ", não encontrado!"));
 	}
 
 	public Categoria insert(Categoria obj) {
-		obj.setId(null);                                                   //ERRO DE INSERÇAO categoria/CRIANDO NOME NULL
+		obj.setId(null);                                                  
 		return rep.save(obj);
 	}
 	
 	public Categoria update(Categoria obj) {
-		buscar(obj.getId());
+		find(obj.getId());
 		return rep.save(obj);
 }
 	public void delete(Integer id) {
-		buscar(id);
+		find(id);
 		
 		try {
 		rep.deleteById(id);
