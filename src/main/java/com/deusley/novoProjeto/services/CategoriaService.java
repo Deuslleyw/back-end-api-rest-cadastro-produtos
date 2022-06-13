@@ -1,5 +1,7 @@
 package com.deusley.novoProjeto.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
@@ -40,5 +42,9 @@ public class CategoriaService {
 		throw new DataIntegrityExcepition("A categoria possui produtos, não é possivel excluir!");
 	
 }
-}
+	}
+		public List<Categoria> findAll(){
+			return rep.findAll();
+		}
+
 }

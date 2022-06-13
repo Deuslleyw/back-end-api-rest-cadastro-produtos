@@ -1,6 +1,7 @@
 package com.deusley.novoProjeto.resources;
 
 import java.net.URI;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,12 +48,14 @@ public class CategoriaResource {
        return ResponseEntity.noContent().build();
 	
 }
-	
-	
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<Categoria>> findAll() {
+	List<Categoria> lista = service.findAll();
+		return ResponseEntity.ok().body(lista);
 }
 
 
-
+}
 
 
 
