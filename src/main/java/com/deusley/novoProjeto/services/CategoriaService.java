@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.deusley.novoProjeto.domain.Categoria;
+import com.deusley.novoProjeto.dto.CategoriaDTO;
 import com.deusley.novoProjeto.repositories.CategoriaRepository;
 import com.deusley.novoProjeto.services.Exceptions.DataIntegrityExcepition;
 import com.deusley.novoProjeto.services.Exceptions.ObjectNotFoundExcepition;
@@ -53,5 +54,7 @@ public class CategoriaService {
     	PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
     	return rep.findAll(pageRequest);
     }
-    
+    public Categoria fromDTO(CategoriaDTO objDTO) {
+    	return new Categoria(objDTO.getId(), objDTO.getNome());
+    }
 }
