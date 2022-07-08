@@ -3,8 +3,10 @@ package com.deusley.novoProjeto.domain;
 import javax.persistence.Entity;
 
 import com.deusley.novoProjeto.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
 
 	
