@@ -39,7 +39,7 @@ public class TestConfig {
 }
 	
 	//@Bean
-	//public EmailService emailService() {                          //AtiveOServiçoDeEmal da Sua preferencia (SMTP)
+	//public EmailService emailService() {                          //AtiveOServiçoDeEmail da Sua preferencia (SMTP)
 		//return new SmtpEmailService();
 	
 	//}}
