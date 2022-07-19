@@ -21,6 +21,7 @@ import com.deusley.novoProjeto.domain.PagamentoComCartao;
 import com.deusley.novoProjeto.domain.Pedido;
 import com.deusley.novoProjeto.domain.Produto;
 import com.deusley.novoProjeto.domain.enums.EstadoPagamento;
+import com.deusley.novoProjeto.domain.enums.Perfil;
 import com.deusley.novoProjeto.domain.enums.TipoCliente;
 import com.deusley.novoProjeto.repositories.CategoriaRepository;
 import com.deusley.novoProjeto.repositories.CidadeRepository;
@@ -111,13 +112,24 @@ public class DBService {
 	Cliente cli1 = new Cliente(null, "Andreia Neto", "teste@hotmail.com", "36378912377", TipoCliente.PESSOAFISICA,Psw.encode("54321"));
 	cli1.getTelefones().addAll(Arrays.asList("33725540","998475501"));
 	
+	Cliente cli2 = new Cliente(null, "Diego", "Diegoteste@hotmail.com", "69928386013", TipoCliente.PESSOAFISICA,Psw.encode("54321"));
+    cli2.addPerfil(Perfil.ADMIN);
+	cli2.getTelefones().addAll(Arrays.asList("99125003","998475554"));
+
+	
+	
 	Endereco end1 = new Endereco(null,"Rua teste", "368", "ap005", "Jardins","37118835", cli1, cd1);
 	Endereco end2 = new Endereco(null, "Av.Paulo", "250", "ap101", "Flores", "39554460", cli1, cd2);
+	Endereco end3 = new Endereco(null, "Av.Brasil", "500", "ap300", "Matos", "39555260", cli2, cd2);
+
 		
 	cli1.getEnderecos().addAll(Arrays.asList(end1,end2));
+	cli2.getEnderecos().addAll(Arrays.asList(end3));
+
 	
-	clienteRepository.saveAll(Arrays.asList(cli1));
-	enderecoRepository.saveAll(Arrays.asList(end1, end2));
+	
+	clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+	enderecoRepository.saveAll(Arrays.asList(end1, end2, end3));
 	
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
