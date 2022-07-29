@@ -3,9 +3,13 @@ package com.deusley.novoProjeto.services;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.deusley.novoProjeto.domain.Cliente;
 import com.deusley.novoProjeto.domain.ItemPedido;
 import com.deusley.novoProjeto.domain.PagamentoComBoleto;
 import com.deusley.novoProjeto.domain.Pedido;
@@ -13,6 +17,8 @@ import com.deusley.novoProjeto.domain.enums.EstadoPagamento;
 import com.deusley.novoProjeto.repositories.ItemPedidoRepository;
 import com.deusley.novoProjeto.repositories.PagamentoRepository;
 import com.deusley.novoProjeto.repositories.PedidoRepository;
+import com.deusley.novoProjeto.security.UserSS;
+import com.deusley.novoProjeto.services.Exceptions.AuthorizationException;
 import com.deusley.novoProjeto.services.Exceptions.ObjectNotFoundExcepition;
 
 @Service
@@ -71,5 +77,13 @@ public class PedidoService {
 		return obj;
 
 	}
-
-}
+	public Page<Pedido> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado!");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente =  clienteService.find(user.getId());
+		return rep.findByCliente(cliente, pageRequest);
+		
+	}}

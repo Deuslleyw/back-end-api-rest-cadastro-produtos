@@ -17,7 +17,7 @@ public class UserSS implements UserDetails {
 	
 	private Integer id;
 	private String email;
-	private String Senha;
+	private String senha;
 	private Collection<? extends GrantedAuthority> authorities;
 	
 	public UserSS() {}
@@ -28,7 +28,7 @@ public class UserSS implements UserDetails {
 		super();
 		this.id = id;
 		this.email = email;
-		Senha = senha;
+		this.senha = senha;
 		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
 	}
 
@@ -39,7 +39,7 @@ public class UserSS implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		return Senha;
+		return senha;
 	}
 
 	@Override
@@ -68,5 +68,8 @@ public class UserSS implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+	public boolean hasRole(Perfil perfil) {
+		return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
 	}
 }

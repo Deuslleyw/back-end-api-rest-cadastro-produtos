@@ -14,11 +14,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.deusley.novoProjeto.domain.Cidade;
 import com.deusley.novoProjeto.domain.Cliente;
 import com.deusley.novoProjeto.domain.Endereco;
+import com.deusley.novoProjeto.domain.enums.Perfil;
 import com.deusley.novoProjeto.domain.enums.TipoCliente;
 import com.deusley.novoProjeto.dto.ClienteDTO;
 import com.deusley.novoProjeto.dto.ClienteNewDTO;
 import com.deusley.novoProjeto.repositories.ClienteRepository;
 import com.deusley.novoProjeto.repositories.EnderecoRepository;
+import com.deusley.novoProjeto.security.UserSS;
+import com.deusley.novoProjeto.services.Exceptions.AuthorizationException;
 import com.deusley.novoProjeto.services.Exceptions.DataIntegrityExcepition;
 import com.deusley.novoProjeto.services.Exceptions.ObjectNotFoundExcepition;
 
@@ -33,9 +36,17 @@ public class ClienteService {
 	
 	@Autowired
 	private EnderecoRepository enderecoRepository;
-
+	
+	
+    
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso Negado!");
+		}
+		
 		return rep.findById(id)
 				.orElseThrow(() -> new ObjectNotFoundExcepition(" Cliente  de ID: " + id + ", não encontrado!"));
 	}
