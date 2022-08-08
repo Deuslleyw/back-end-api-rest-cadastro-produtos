@@ -18,7 +18,6 @@ public class JWTUtil {
 	@Value("${jwt.expiration}")
 	private Long expiration;
 
-	@SuppressWarnings("deprecation")
 	public String generateToken(String username) {
 		return Jwts.builder()
 				.setSubject(username)
@@ -48,7 +47,6 @@ public class JWTUtil {
 		return null;
 	}
 
-	@SuppressWarnings("deprecation")
 	private Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
